@@ -5,6 +5,7 @@ const initChatroomCable = () => {
   if (messagesContainer) {
     const id = messagesContainer.dataset.chatroomId;
 
+    // creating cable between user and channel
     consumer.subscriptions.create({ channel: "ChatroomChannel", id: id }, {
       received(data) {
         messagesContainer.insertAdjacentHTML('beforeend', data);

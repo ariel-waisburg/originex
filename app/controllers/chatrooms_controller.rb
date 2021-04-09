@@ -11,8 +11,10 @@ class ChatroomsController < ApplicationController
     @chatroom.activity = @activity
     if @chatroom.save
       params[:chatroom]["users"].each do |user_id|
+        # creating participants with false status until they confirmed their chatroom participation
         @participant = Participant.create(user_id: user_id, chatroom_id: @chatroom.id, status: false)
       end
+        # making the chatroom creator a participant
       @participant = Participant.create(user_id: current_user.id, chatroom_id: @chatroom.id, status: true)
       redirect_to chatroom_path(@chatroom)
     else
